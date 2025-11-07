@@ -1,5 +1,11 @@
-postgresql:
-  enabled: false
+# Disable in-chart databases/caches – we use external MySQL
+postgresql: { enabled: false }
+postgresql-ha: { enabled: false }
+memcached: { enabled: false }
+redis: { enabled: false }
+redis-cluster: { enabled: false }
+valkey: { enabled: false }
+valkey-cluster: { enabled: false }
 
 persistence:
   enabled: true
@@ -14,10 +20,7 @@ persistence:
 
 service:
   http:
-    type: ClusterIP
-
-ingress:
-  enabled: false
+    type: ClusterIP   # normal ClusterIP service for 3000
 
 gitea:
   config:
@@ -26,8 +29,10 @@ gitea:
       HOST: mysql.gitea.svc.cluster.local:3306
       NAME: gitea
       USER: gitea
-      PASSWD: "__MYSQL_GITEA_PASSWORD__"
+      PASSWD: "__MYSQL_GITEA_PASSWORD__"   # we inject real value at install
     server:
       ROOT_URL: "https://gitea.the-vpk.com/"
       DOMAIN: "gitea.the-vpk.com"
+      PROTOCOL: http
+      HTTP_PORT: 3000
       DISABLE_SSH: true
