@@ -1,0 +1,3 @@
+---
+- import_playbook: k8s/up.yml
+- import_playbook: gitea/up.yml
