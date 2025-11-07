@@ -1,0 +1,33 @@
+postgresql:
+  enabled: false
+
+persistence:
+  enabled: true
+  data:
+    enabled: true
+    size: 10Gi
+    storageClass: local-path
+  config:
+    enabled: true
+    size: 1Gi
+    storageClass: local-path
+
+service:
+  http:
+    type: ClusterIP
+
+ingress:
+  enabled: false
+
+gitea:
+  config:
+    database:
+      DB_TYPE: mysql
+      HOST: mysql.gitea.svc.cluster.local:3306
+      NAME: gitea
+      USER: gitea
+      PASSWD: "__MYSQL_GITEA_PASSWORD__"
+    server:
+      ROOT_URL: "https://gitea.the-vpk.com/"
+      DOMAIN: "gitea.the-vpk.com"
+      DISABLE_SSH: true
